@@ -1,0 +1,27 @@
+.theme-dark {
+  --color-base-00: #041e2b;
+  --color-base-05: #041e2b;
+  --color-base-10: #041e2b;
+  --color-base-20: #135050;
+  --color-base-25: #135050;
+  --color-base-30: #194e4e;
+  --color-base-35: #194e4e;
+  --color-base-40: #929189;
+  --color-base-50: #929189;
+  --color-base-60: #c4c2ae;
+  --color-base-70: #c4c2ae;
+  --color-base-100: #fffce3;
+  --background-secondary-alt: #0d2a38;
+}
+
+body.is-focused {
+  --titlebar-background: #073952;
+}
+
+body {
+  --background-primary: #040d1c;
+  --background-secondary: #041e2b;
+  --ribbon-background: #14303e;
+  --ribbon-background-collapsed: #14303e;
+}
+
