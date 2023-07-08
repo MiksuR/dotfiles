@@ -1,0 +1,44 @@
+:root {
+  --bg-color: #040d1c;
+  --fg-color: #fffce3;
+  --toolbar-bgcolor: var(--bg-color) !important;
+  --toolbar-textcolor: var(--fg-color) !important;
+  --tabpanel-background-color: var(--bg-color);
+  --tab-selected-bgcolor: #f07917;
+  -moz-dialogtext: var(--fg-color);
+  -moz-menubartext: var(--fg-color);
+}
+
+#TabsToolbar {
+  color: var(--fg-color) !important;
+}
+
+.toolbar-items {
+  background-color: var(--bg-color);
+}
+
+.browser-toolbar {
+  color: var(--fg-color) !important;
+}
+
+#urlbar {
+  color: #24c6c6 !important;
+  font-weight: bold;
+}
+
+#urlbar-background {
+  background-color: var(--bg-color) !important;
+  border: 1px solid color-mix(in srgb, #24c6c6 80%, black);
+}
+
+#urlbar-input-container {
+  border: 1px solid color-mix(in srgb, #24c6c6 80%, black);
+}
+
+#personal-bookmarks {
+  color: color-mix(in srgb, var(--fg-color) 60%, black);
+}
+
+#navigator-toolbox {
+  border-bottom: 1px solid #19375e;
+}

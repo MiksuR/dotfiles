@@ -24,6 +24,8 @@
 
 **Shell:**&ensp;[ZSH](https://www.zsh.org)/[`zsh`](https://archlinux.org/packages/extra/x86_64/zsh/) + [Oh My ZSH](https://ohmyz.sh)
 
+**Browser:**&ensp;[`firefox`](https://archlinux.org/packages/extra/x86_64/firefox/)
+
 **Text editor:**&ensp;[Doom Emacs](https://doomemacs.org)/[`emacs`](https://archlinux.org/packages/extra/x86_64/emacs)
 
 **Compositor:**&ensp;[Picom](https://github.com/yshui/picom)/[`picom`](https://archlinux.org/packages/extra/x86_64/picom/)
@@ -39,9 +41,17 @@
   The bar is based on a theme called *shapes* by [adi1090x](https://github.com/adi1090x/polybar-themes).
   
   In addition to the standard modules, the bar uses [`updates-pacman-aurhelper`](https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/updates-pacman-aurhelper)
-  and [`polybar-spotify`](https://github.com/PrayagS/polybar-spotify).
-  I do not recommend the Spotify module, because it uses too much CPU, and I will replace it soon.
+  and [`spot-on`](https://github.com/MiksuR/spot-on).
   
+</details>
+
+<details>
+  <summary>Firefox</summary>
+
+  I add styling to my Firefox instance with userChrome.css.
+  It should be placed in the "Profile Directory" specified
+  in about:support.
+
 </details>
 
 <details>
