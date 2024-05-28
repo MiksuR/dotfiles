@@ -1,0 +1,66 @@
+From b88901a732e6a801e7eca98e7d9c798b986c33d9 Mon Sep 17 00:00:00 2001
+From: Miksu <redacted>
+Date: Tue, 28 May 2024 12:52:50 +0100
+Subject: [PATCH] Change config and add terminalkeys
+
+ - Change group to nobody, so it works on Arch
+ - Change colours
+ - Set failonclear to 0
+ - Apply slock-terminalkeys-20160618-65b8d52.diff
+---
+ config.def.h | 10 +++++-----
+ slock.c      | 16 ++++++++++++++++
+ 2 files changed, 21 insertions(+), 5 deletions(-)
+
+diff --git a/config.def.h b/config.def.h
+index 9855e21..576fa39 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -1,12 +1,12 @@
+ /* user and group to drop privileges to */
+ static const char *user  = "nobody";
+-static const char *group = "nogroup";
++static const char *group = "nobody";
+ 
+ static const char *colorname[NUMCOLS] = {
+-	[INIT] =   "black",     /* after initialization */
+-	[INPUT] =  "#005577",   /* during input */
+-	[FAILED] = "#CC3333",   /* wrong password */
++	[INIT] =   "#040d1c",     /* after initialization */
++	[INPUT] =  "#00c1c1",   /* during input */
++	[FAILED] = "#ff5300",   /* wrong password */
+ };
+ 
+ /* treat a cleared input like a wrong password (color) */
+-static const int failonclear = 1;
++static const int failonclear = 0;
+diff --git a/slock.c b/slock.c
+index b2f14e3..1ea257b 100644
+--- a/slock.c
++++ b/slock.c
+@@ -156,6 +156,22 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
+ 			    IsPFKey(ksym) ||
+ 			    IsPrivateKeypadKey(ksym))
+ 				continue;
++           if (ev.xkey.state & ControlMask) {
++               switch (ksym) {
++               case XK_u:
++                   ksym = XK_Escape;
++                   break;
++               case XK_m:
++                   ksym = XK_Return;
++                   break;
++               case XK_j:
++                   ksym = XK_Return;
++                   break;
++               case XK_h:
++                   ksym = XK_BackSpace;
++                   break;
++               }
++           }
+ 			switch (ksym) {
+ 			case XK_Return:
+ 				passwd[len] = '\0';
+-- 
+2.45.1
+
