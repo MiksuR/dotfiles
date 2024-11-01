@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixgl, ... }:
 
 {
   home.username = "miika";
@@ -6,6 +6,7 @@
   home.stateVersion = "24.05";
 
   home.packages = [
+    (config.lib.nixGL.wrap pkgs.alacritty)
     # # configuration. For example, this adds a command 'my-hello' to your
     # # environment:
     # (pkgs.writeShellScriptBin "my-hello" ''
@@ -40,5 +41,13 @@
     extraConfig.commit.gpgsign = true;
   };
   programs.gpg.enable = true;
+
+  nixGL.packages = nixgl.packages.${pkgs.system};
+  nixGL.defaultWrapper = "mesa";
+
+  xsession.enable = true;
+  xsession.windowManager.xmonad.enable = true;
+  xsession.windowManager.xmonad.enableContribAndExtras = true;
+  xsession.windowManager.xmonad.config = ./xmonad.hs;
 }
 
