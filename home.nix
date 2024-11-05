@@ -26,6 +26,7 @@
       ];
       configFile = pkgs.writeText "config.def.h" (builtins.readFile ./suckless/dmenu/config.def.h);
     }))
+    pkgs.xclip
     # # For example, this adds a command 'my-hello' to your
     # # environment:
     # (pkgs.writeShellScriptBin "my-hello" ''
@@ -69,5 +70,31 @@
   xsession.windowManager.xmonad.enable = true;
   xsession.windowManager.xmonad.enableContribAndExtras = true;
   xsession.windowManager.xmonad.config = ./xmonad.hs;
+
+  home.keyboard = {
+    layout = "fi";
+    model = "pc104";
+    variant = "fidvorak";
+    options = [ "caps:backspace" ];
+  };
+
+  programs.firefox = {
+    enable = true;
+    profiles.default = {
+      search.default = "DuckDuckGo";
+      userChrome = (builtins.readFile ./userChrome.css);
+      settings = {
+        "browser.download.useDownloadDir" = "false";
+        "browser.startup.homepage" = "https://www.duckduckgo.com/";
+      };
+      extraConfig = ''
+        user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+        user_pref("privacy.globalprivacycontrol.enabled", true);
+        user_pref("privacy.donottrackheader.enabled", true);
+        user_pref("app.shield.optoutstudies.enabled", false);
+        user_pref("middlemouse.paste", false);
+      '';
+    };
+  };
 }
 
