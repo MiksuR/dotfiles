@@ -1,32 +1,26 @@
 {
-  description = "Home Manager configuration of miika";
+  description = "System configuration for old-faithful";
 
-  inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixgl = {
-      url = "github:nix-community/nixGL";
-      inputs.nixpkgs.follows = "nixpkgs";
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: 
+  {
+    nixosConfigurations.old-faithful = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ./configuration.nix
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.miika = import ./miika.nix;
+          home-manager.users.saara = import ./saara.nix;
+        }
+      ];
     };
   };
-
-  outputs = { nixpkgs, home-manager, nixgl, ... }:
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      homeConfigurations."miika" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
-        modules = [ ./home.nix ];
-
-        extraSpecialArgs = {
-          inherit nixgl;
-        };
-      };
-    };
+  
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+  };
 }

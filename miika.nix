@@ -1,12 +1,14 @@
-{ config, pkgs, nixgl, ... }:
+{ config, pkgs, ... }:
 
 {
   home.username = "miika";
   home.homeDirectory = "/home/miika";
-  home.stateVersion = "24.05";
+  home.sessionVariables = {
+    EDITOR = "vim";
+  };
 
-  home.packages = [
-    (config.lib.nixGL.wrap pkgs.alacritty)
+  home.packages = with pkgs; [
+    alacritty
     (pkgs.dmenu.overrideDerivation (oldAttrs: rec {
       version = "5.2";
       src = pkgs.fetchurl {
@@ -16,12 +18,12 @@
       patches = [
         (pkgs.fetchpatch {
           url = "https://tools.suckless.org/dmenu/patches/border/dmenu-border-5.2.diff";
-          sha256 = "0kyi50z6c1y81gbq4kp9cnmg7gqpc9j17r7x227v6px68a8nj7p5";
+          sha256 = "sha256-pf9UM3cEVfYr99HuQeeakYbFNSAJmCPS+uqSI6Anf/I=";
         })
 
         (pkgs.fetchpatch {
           url = "https://tools.suckless.org/dmenu/patches/center/dmenu-center-5.2.diff";
-          sha256 = "1jck88ypx83b73i0ys7f6mqikswgd2ab5q0dfvs327gsz11jqyws";
+          sha256 = "sha256-g7ow7GVUsisR2kQ4dANRx/pJGU8fiG4fR08ZkbUFD5o=";
         })
       ];
       configFile = pkgs.writeText "config.def.h" (builtins.readFile ./suckless/dmenu/config.def.h);
@@ -48,28 +50,44 @@
     ".config/run-recent".source = ./suckless/dmenu/run-recent;
   };
 
-  home.sessionVariables = {
-    EDITOR = "vim";
+  programs = {
+    home-manager.enable = true;
+    git = {
+      enable = true;
+      userEmail = "8172649+MiksuR@users.noreply.github.com";
+      userName = "Miksu Rankaviita";
+      # signing.key = "AD181E25DBF8D214";
+      # extraConfig.commit.gpgsign = true;
+    };
+    gpg.enable = true;
+    firefox = {
+      enable = true;
+      profiles.default = {
+        search.default = "DuckDuckGo";
+        userChrome = (builtins.readFile ./userChrome.css);
+        settings = {
+          "browser.download.useDownloadDir" = "false";
+          "browser.startup.homepage" = "https://www.duckduckgo.com/";
+        };
+        extraConfig = ''
+          user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+          user_pref("privacy.globalprivacycontrol.enabled", true);
+          user_pref("privacy.donottrackheader.enabled", true);
+          user_pref("app.shield.optoutstudies.enabled", false);
+          user_pref("middlemouse.paste", false);
+        '';
+      };
+    };
   };
 
-  programs.home-manager.enable = true;
-  programs.vim.enable = true;
-  programs.git = {
+  xsession = {
     enable = true;
-    userEmail = "8172649+MiksuR@users.noreply.github.com";
-    userName = "Miksu Rankaviita";
-    signing.key = "AD181E25DBF8D214";
-    extraConfig.commit.gpgsign = true;
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+      config = ./xmonad.hs;
+    };
   };
-  programs.gpg.enable = true;
-
-  nixGL.packages = nixgl.packages.${pkgs.system};
-  nixGL.defaultWrapper = "mesa";
-
-  xsession.enable = true;
-  xsession.windowManager.xmonad.enable = true;
-  xsession.windowManager.xmonad.enableContribAndExtras = true;
-  xsession.windowManager.xmonad.config = ./xmonad.hs;
 
   home.keyboard = {
     layout = "fi";
@@ -78,23 +96,5 @@
     options = [ "caps:backspace" ];
   };
 
-  programs.firefox = {
-    enable = true;
-    profiles.default = {
-      search.default = "DuckDuckGo";
-      userChrome = (builtins.readFile ./userChrome.css);
-      settings = {
-        "browser.download.useDownloadDir" = "false";
-        "browser.startup.homepage" = "https://www.duckduckgo.com/";
-      };
-      extraConfig = ''
-        user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
-        user_pref("privacy.globalprivacycontrol.enabled", true);
-        user_pref("privacy.donottrackheader.enabled", true);
-        user_pref("app.shield.optoutstudies.enabled", false);
-        user_pref("middlemouse.paste", false);
-      '';
-    };
-  };
+  home.stateVersion = "24.11";
 }
-
