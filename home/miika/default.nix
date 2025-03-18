@@ -64,7 +64,7 @@
       enable = true;
       profiles.default = {
         search.default = "DuckDuckGo";
-        userChrome = (builtins.readFile ./userChrome.css);
+        userChrome = (builtins.readFile ./firefox/userChrome.css);
         settings = {
           "browser.download.useDownloadDir" = "false";
           "browser.startup.homepage" = "https://www.duckduckgo.com/";
@@ -85,7 +85,7 @@
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
-      config = ./xmonad.hs;
+      config = ./xmonad/xmonad.hs;
     };
   };
 

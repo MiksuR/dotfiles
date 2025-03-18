@@ -12,12 +12,6 @@
         modules = [
           ./hosts/${host}
           home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.miika = import ./miika.nix;
-            home-manager.users.saara = import ./saara.nix;
-          }
         ];
       }
     );
