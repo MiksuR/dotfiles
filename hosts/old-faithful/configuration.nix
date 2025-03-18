@@ -1,33 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  hardware.graphics.enable32Bit = true;
-
-  time.timeZone = "Europe/Helsinki";
-  i18n.defaultLocale = "en_GB.UTF-8";
-  console.keyMap = "dvorak";
-
-  networking.hostName = "old-faithful"; # Define your hostname.
-  networking.networkmanager.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-
-  users.users = {
-    miika = {
-      isNormalUser = true;
-      extraGroups = [ "wheel" ];
-    };
-    saara.isNormalUser = true;
-  };
-
   environment = {
     systemPackages = with pkgs; [
       vim
@@ -48,6 +21,10 @@
     pipewire.enable = true;
     pipewire.pulse.enable = true;
   };
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+
   # Enable sound.
   # hardware.pulseaudio.enable = true;
   # Enable the OpenSSH daemon.
@@ -61,8 +38,5 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  system.stateVersion = "24.11";
 }
 
