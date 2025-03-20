@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, hostName, ... }:
 
 {
   home.username = "miika";
@@ -26,7 +26,8 @@
           sha256 = "sha256-g7ow7GVUsisR2kQ4dANRx/pJGU8fiG4fR08ZkbUFD5o=";
         })
       ];
-      configFile = pkgs.writeText "config.def.h" (builtins.readFile ./suckless/dmenu/config.def.h);
+      configFile = ./suckless/dmenu/config.def.h;
+      postPatch = "${oldAttrs.postPatch}\ncp ${configFile} config.def.h";
     }))
     pkgs.xclip
     # # For example, this adds a command 'my-hello' to your
