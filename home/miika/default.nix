@@ -5,6 +5,7 @@
   home.homeDirectory = "/home/miika";
   home.sessionVariables = {
     EDITOR = "vim";
+    KEYTIMEOUT=1;
   };
 
   home.packages = with pkgs; [
@@ -38,17 +39,8 @@
   ];
 
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
     ".config/run-recent".source = ./suckless/dmenu/run-recent;
+    ".config/zsh-custom/themes/rankaviita.zsh-theme".source = ./zsh/rankaviita.zsh-theme;
   };
 
   programs = {
@@ -78,6 +70,35 @@
           user_pref("middlemouse.paste", false);
         '';
       };
+    };
+    zsh = {
+      enable = true;
+      enableCompletion = true;
+
+      oh-my-zsh = {
+        enable = true;
+        plugins = [ "git" "cabal" "colored-man-pages" "colorize" "command-not-found" "stack" "timer" ];
+        theme = "rankaviita";
+        custom = "$HOME/.config/zsh-custom";
+      };
+
+      initExtra = ''
+        stty erase 
+        
+        bindkey -v
+        bindkey '^?' backward-delete-char
+        bindkey '^r' history-incremental-search-backward
+        bindkey '^u' kill-whole-line
+        bindkey '^e' end-of-line
+        
+        function zle-line-init zle-keymap-select {
+          VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]% %{$reset_color%}"
+          RPS1="''${''${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
+          zle reset-prompt
+        }
+        zle -N zle-line-init
+        zle -N zle-keymap-select
+      '';
     };
   };
 

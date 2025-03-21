@@ -8,6 +8,11 @@
   i18n.defaultLocale = "en_GB.UTF-8";
   console.keyMap = "dvorak";
 
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
+  environment.shells = [ pkgs.zsh ];
+  environment.pathsToLink = [ "/share/zsh" ];
+
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
 
