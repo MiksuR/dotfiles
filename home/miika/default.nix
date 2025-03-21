@@ -16,7 +16,6 @@
   };
 
   home.packages = with pkgs; [
-    alacritty
     pkgs.xclip
     # # For example, this adds a command 'my-hello' to your
     # # environment:

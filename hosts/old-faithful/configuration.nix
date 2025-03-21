@@ -38,5 +38,12 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-emoji
+    nerd-fonts.hasklug
+  ];
+  fonts.fontconfig.useEmbeddedBitmaps = true;
 }
 
