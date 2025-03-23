@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  imports = [ ./polybar.nix ];
+
   services.picom = {
     enable = true;
     shadow = true;
