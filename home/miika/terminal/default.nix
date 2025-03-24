@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   home.file = {
-    ".config/zsh-custom/themes/rankaviita.zsh-theme".source = ./rankaviita.zsh-theme;
+    "${config.xdg.configHome}/zsh-custom/themes/rankaviita.zsh-theme".source = ./rankaviita.zsh-theme;
   };
 
   programs = {

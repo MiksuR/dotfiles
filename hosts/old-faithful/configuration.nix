@@ -6,6 +6,8 @@
       vim
       git
       tree
+      ripgrep
+      fd
     ];
     variables = {
       EDITOR = "vim";

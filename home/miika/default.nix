@@ -14,9 +14,14 @@
     EDITOR = "vim";
     KEYTIMEOUT=1;
   };
+  home.sessionPath = [
+    "${config.xdg.configHome}/emacs/bin"
+  ];
 
   home.packages = with pkgs; [
     pkgs.xclip
+    pkgs.obsidian
+    pkgs.emacs
     # # For example, this adds a command 'my-hello' to your
     # # environment:
     # (pkgs.writeShellScriptBin "my-hello" ''

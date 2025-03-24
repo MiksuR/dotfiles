@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -25,6 +25,6 @@
   ];
 
   home.file = {
-    ".config/run-recent".source = ./dmenu/run-recent;
+    "${config.xdg.configHome}/run-recent".source = ./dmenu/run-recent;
   };
 }
