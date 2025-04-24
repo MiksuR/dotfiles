@@ -1,14 +1,18 @@
 {
   description = "MiksuR system config";
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: 
+  outputs = { self, nixpkgs, nixpkgs-6de7e2, home-manager, ... }@inputs:
   let
     inherit (self) outputs;
     inherit (nixpkgs) lib;
+    system = "x86_64-linux";
     hosts = builtins.readDir ./hosts;
     mkHost = (host: type_:
       lib.nixosSystem {
-        system = "x86_64-linux";
+        inherit system;
+        specialArgs = {
+          nixpkgs-6de7e2 = import nixpkgs-6de7e2 { inherit system; };
+        };
         modules = [
           ./hosts/${host}
           home-manager.nixosModules.home-manager
@@ -22,6 +26,8 @@
   
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # Pinned nixpkgs for ElementalWarrior wine fork
+    nixpkgs-6de7e2.url = "github:NixOS/nixpkgs/6de7e2e9f6eeb4b4784bf376f07293f0d2748004";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };

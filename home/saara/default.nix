@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  imports = [ ./wine.nix ];
+
   home.username = "saara";
   home.homeDirectory = "/home/saara";
 
