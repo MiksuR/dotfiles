@@ -1,4 +1,4 @@
-{ config, lib, pkgs, nixpkgs-6de7e2, ... }:
+{ config, lib, pkgs, nixpkgs-6de7e2, hostName, ... }:
 
 {
   boot.loader.systemd-boot.enable = true;
@@ -21,6 +21,7 @@
   home-manager.backupFileExtension = "backup";
   home-manager.extraSpecialArgs = {
     inherit nixpkgs-6de7e2;
+    inherit hostName;
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

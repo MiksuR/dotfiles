@@ -11,6 +11,7 @@
       lib.nixosSystem {
         inherit system;
         specialArgs = {
+          hostName = host;
           nixpkgs-6de7e2 = import nixpkgs-6de7e2 { inherit system; };
         };
         modules = [

@@ -1,5 +1,10 @@
 { config, pkgs, hostName, ... }:
 
+let
+  gpgKeys = {
+    "old-faithful" = "AF910854BA808650";
+  };
+in
 {
   imports = [
     ./desktop-environment
@@ -19,9 +24,10 @@
   ];
 
   home.packages = with pkgs; [
-    pkgs.xclip
-    pkgs.obsidian
-    pkgs.emacs
+    xclip
+    obsidian
+    emacs
+    bitwarden
     # # For example, this adds a command 'my-hello' to your
     # # environment:
     # (pkgs.writeShellScriptBin "my-hello" ''
@@ -31,14 +37,26 @@
 
   programs = {
     home-manager.enable = true;
+    ssh = {
+      enable = true;
+      addKeysToAgent = "yes";
+    };
+    gpg.enable = true;
     git = {
       enable = true;
       userEmail = "8172649+MiksuR@users.noreply.github.com";
       userName = "Miksu Rankaviita";
-      # signing.key = "AD181E25DBF8D214";
-      # extraConfig.commit.gpgsign = true;
+      signing.key = gpgKeys.${hostName};
+      extraConfig.commit.gpgsign = true;
     };
-    gpg.enable = true;
+  };
+
+  services = {
+    ssh-agent.enable = true;
+    gpg-agent = {
+      enable = true;
+      pinentryPackage = pkgs.pinentry-tty;
+    };
   };
 
   home.keyboard = {

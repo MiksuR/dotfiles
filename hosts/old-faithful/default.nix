@@ -1,4 +1,5 @@
 { config, lib, pkgs, ... }:
+
 {
   imports = [
     ../common
@@ -18,9 +19,6 @@
   };
   home-manager.users.miika = import ../../home/miika;
   home-manager.users.saara = import ../../home/saara;
-  home-manager.extraSpecialArgs = {
-    hostName = "old-faithful";
-  };
 
   system.stateVersion = "24.11";
 }
