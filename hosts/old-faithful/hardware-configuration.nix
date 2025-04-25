@@ -36,4 +36,10 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = [ pkgs.intel-media-sdk ];
+    extraPackages32 = [ pkgs.pkgsi686Linux.intel-media-driver ];
+  };
 }
