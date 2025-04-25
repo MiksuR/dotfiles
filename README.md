@@ -32,7 +32,7 @@
 
 **Note-taking:**&ensp;[Obsidian](https://obsidian.md)
 
-**Photo-editing/graphics design:**&ensp;[Affinity suite](https://affinity.serif.com/en-gb/) (running on [ElementalWarrior's Wine fork](https://gitlab.winehq.org/ElementalWarrior/wine/-/tree/affinity-photo3-wine9.13-part3?ref_type=heads)) + [Darktable](https://www.darktable.org/) + [Inkscape](https://inkscape.org/) + [GIMP](https://www.gimp.org/)
+**Photo-editing/graphics design:**&ensp;[Affinity suite](https://affinity.serif.com/en-gb/) + [Darktable](https://www.darktable.org/) + [Inkscape](https://inkscape.org/) + [GIMP](https://www.gimp.org/)
 
 **Video-editing:**&ensp;[Olive](https://github.com/olive-editor/olive) + [NATRON](https://natrongithub.github.io/)
 
@@ -72,4 +72,20 @@ nix run --experimental-features "nix-command flakes" nix-os -- switch --flake .#
   
   In addition, I use the `run_recent` [script](https://tools.suckless.org/dmenu/scripts).
   
+</details>
+
+<details>
+  <summary>Affinity suite</summary>
+
+  To get the Affinity programs running on Linux, one needs to build [ElementalWarrior's Wine fork](https://gitlab.winehq.org/ElementalWarrior/wine/-/tree/affinity-photo3-wine9.13-part3?ref_type=heads).
+  The current configuration builds the fork automatically. To finish the installation, one needs to set up a Wine
+  prefix as in [this guide](https://affinity.liz.pet/docs/3-wineprefix_setup.html#setting-up-your-build-and-wineprefix):
+
+  ```
+  $ wineboot --init
+  $ winetricks --unattended dotnet48 corefonts
+  $ winecfg -v win11
+  Copy WinMetadata to ~/.wine/drive_c/windows/system32/WinMetadata
+  $ wine [Path to the installer].exe
+  ```
 </details>
