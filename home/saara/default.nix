@@ -7,6 +7,9 @@
   home.homeDirectory = "/home/saara";
 
   home.packages = with pkgs; [
+    gwenview
+    darktable
+    chromium
   ];
 
   programs = {

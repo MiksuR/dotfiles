@@ -5,14 +5,25 @@
   boot.loader.efi.canTouchEfiVariables = true;
   hardware.graphics.enable32Bit = true;
 
+  networking.hostName = hostName;
+
   time.timeZone = "Europe/Helsinki";
   i18n.defaultLocale = "en_GB.UTF-8";
   console.keyMap = "dvorak";
 
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
-  environment.shells = [ pkgs.zsh ];
-  environment.pathsToLink = [ "/share/zsh" ];
+  environment = {
+    shells = [ pkgs.zsh ];
+    pathsToLink = [ "/share/zsh" ];
+    variables = { EDITOR = "vim"; };
+    systemPackages = with pkgs; [
+      vim git
+      tree ripgrep
+      fd
+      unzip p7zip
+    ];
+  };
 
   nixpkgs.config.allowUnfree = true;
 

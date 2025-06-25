@@ -3,6 +3,7 @@
 let
   gpgKeys = {
     "old-faithful" = "AF910854BA808650";
+    "central" = "CAC71FB350D8AF19";
   };
 in
 {
