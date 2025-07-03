@@ -6,6 +6,7 @@
   environment.systemPackages = with pkgs; [
     openseachest
     libreoffice
+    kdePackages.gwenview
   ];
 
   programs = {
@@ -23,10 +24,10 @@
   services = {
     xserver = {
       enable = true;
-      desktopManager.plasma5.enable = true;
       windowManager.xmonad.enable = true;
       displayManager.gdm.enable = true;
     };
+    desktopManager.plasma6.enable = true;
     pipewire = {
       enable = true;
       pulse.enable = true;

@@ -35,7 +35,7 @@ in
     };
 
     profiles.default = {
-      search.default = "DuckDuckGo";
+      search.default = "ddg";
       search.force = true;
       userChrome = (builtins.readFile ./userChrome.css);
 

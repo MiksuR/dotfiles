@@ -21,7 +21,7 @@
         custom = "$HOME/.config/zsh-custom";
       };
 
-      initExtra = ''
+      initContent = ''
         stty erase 
         
         bindkey -v
