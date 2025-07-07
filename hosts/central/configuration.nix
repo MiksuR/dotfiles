@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  networking.firewall.allowedTCPPorts = [ 80 ];
+  networking.firewall.allowedTCPPorts = [ 8000 ];
 
   environment.systemPackages = with pkgs; [
     openseachest
@@ -25,7 +25,10 @@
     xserver = {
       enable = true;
       windowManager.xmonad.enable = true;
-      displayManager.gdm.enable = true;
+      displayManager.gdm = {
+        enable = true;
+        autoSuspend = false;
+      };
     };
     desktopManager.plasma6.enable = true;
     pipewire = {
@@ -34,6 +37,13 @@
     };
     openssh.enable = true;
   };
+
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-emoji
+    nerd-fonts.hasklug
+  ];
+  fonts.fontconfig.useEmbeddedBitmaps = true;
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -44,12 +54,12 @@
     nvidiaSettings = true;
   };
 
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-emoji
-    nerd-fonts.hasklug
-  ];
-  fonts.fontconfig.useEmbeddedBitmaps = true;
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=no
+    AllowHibernation=no
+    AllowSuspendThenHibernate=no
+    AllowHybridSleep=no
+  '';
 
   fileSystems."/imgr" = {
     device = "/dev/disk/by-uuid/a61df710-917c-47b6-bb14-d1701b21deae";
