@@ -75,6 +75,14 @@ nix run --experimental-features "nix-command flakes" nix-os -- switch --flake .#
 </details>
 
 <details>
+  <summary>Doom Emacs</summary>
+
+  Doom needs to be installed manually following the instructions in the [GitHub repo](https://github.com/doomemacs/doomemacs).
+
+  After installation, the `~/.config/doom` directory can be replaced by a symbolic link to `dotfiles/doom`.
+</details>
+
+<details>
   <summary>Affinity suite</summary>
 
   To get the Affinity programs running on Linux, one needs to build [ElementalWarrior's Wine fork](https://gitlab.winehq.org/ElementalWarrior/wine/-/tree/affinity-photo3-wine9.13-part3?ref_type=heads).
