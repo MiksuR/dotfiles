@@ -4,6 +4,7 @@
   networking.firewall.allowedTCPPorts = [ 8000 ];
 
   environment.systemPackages = with pkgs; [
+    cifs-utils
     openseachest
     libreoffice
     kdePackages.gwenview
@@ -79,6 +80,14 @@
       "lazytime"
       "owner"
     ];
+  };
+
+  fileSystems."/mnt/dietpi" = {
+    device = "//dietpi.lan/dietpi";
+    fsType = "cifs";
+    options = let
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+    in ["${automount_opts},credentials=/home/miika/private/smb-secrets,uid=1000,gid=100"]; # Change hardcoded values
   };
 }
 
