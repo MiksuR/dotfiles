@@ -29,6 +29,8 @@ in
     obsidian
     emacs
     bitwarden
+    zathura
+    bc
     # # For example, this adds a command 'my-hello' to your
     # # environment:
     # (pkgs.writeShellScriptBin "my-hello" ''

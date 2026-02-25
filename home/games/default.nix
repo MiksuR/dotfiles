@@ -6,6 +6,8 @@
 
   home.packages = with pkgs; [
     lutris
+    runelite
+    dolphin-emu
   ];
 
   programs = {

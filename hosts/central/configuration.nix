@@ -7,6 +7,9 @@
     openseachest
     libreoffice
     kdePackages.gwenview
+    inkscape
+    duc
+    vlc
   ];
 
   programs = {
@@ -44,6 +47,12 @@
     nerd-fonts.hasklug
   ];
   fonts.fontconfig.useEmbeddedBitmaps = true;
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings.Policy.AutoEnable = true;
+  };
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
